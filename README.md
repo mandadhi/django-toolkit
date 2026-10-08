@@ -16,12 +16,10 @@ This repository follows the marketplace/plugin layout used by TechWave Toolkit: 
 
 ## Install from GitHub
 
-After pushing this repository to GitHub as `<OWNER>/<REPO>`:
-
 ### Claude Code
 
 ```bash
-claude plugin marketplace add <OWNER>/<REPO>
+claude plugin marketplace add mandadhi/django-toolkit
 claude plugin install django-expert@django-expert
 ```
 
@@ -35,7 +33,7 @@ claude plugin details django-expert
 ### GitHub Copilot CLI
 
 ```bash
-copilot plugin marketplace add <OWNER>/<REPO>
+copilot plugin marketplace add mandadhi/django-toolkit
 copilot plugin install django-expert@django-expert
 ```
 
@@ -51,7 +49,7 @@ copilot plugin details django-expert
 Copilot also supports installing a plugin directly from a subdirectory in a GitHub repository:
 
 ```bash
-copilot plugin install <OWNER>/<REPO>:plugins/django-expert
+copilot plugin install mandadhi/django-toolkit:plugins/django-expert
 ```
 
 ### Direct local installation

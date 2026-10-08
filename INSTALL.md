@@ -1,11 +1,9 @@
 # Installation Quick Reference
 
-Replace `<OWNER>/<REPO>` with the GitHub repository containing this directory.
-
 ## Claude Code
 
 ```bash
-claude plugin marketplace add <OWNER>/<REPO>
+claude plugin marketplace add mandadhi/django-toolkit
 claude plugin install django-expert@django-expert
 claude plugin list
 claude plugin details django-expert
@@ -14,7 +12,7 @@ claude plugin details django-expert
 ## GitHub Copilot CLI — marketplace
 
 ```bash
-copilot plugin marketplace add <OWNER>/<REPO>
+copilot plugin marketplace add mandadhi/django-toolkit
 copilot plugin install django-expert@django-expert
 copilot plugin list
 copilot plugin details django-expert
@@ -23,7 +21,7 @@ copilot plugin details django-expert
 ## GitHub Copilot CLI — direct plugin path
 
 ```bash
-copilot plugin install <OWNER>/<REPO>:plugins/django-expert
+copilot plugin install mandadhi/django-toolkit:plugins/django-expert
 ```
 
 ## GitHub Copilot CLI — local path
