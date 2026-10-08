@@ -1,0 +1,22 @@
+{
+  "name": "django-expert",
+  "version": "1.0.0",
+  "files": {
+    "core": "SKILL.md",
+    "references": [
+      "references/models-and-orm.md",
+      "references/views-and-urls.md",
+      "references/drf-guidelines.md",
+      "references/security-checklist.md",
+      "references/testing-strategies.md",
+      "references/performance-optimization.md",
+      "references/production-deployment.md",
+      "references/examples.md"
+    ],
+    "evaluation": [
+      "evals/evals.json",
+      "evals/rubric.md"
+    ]
+  },
+  "source_basis": "User-supplied Django expert skill and Django reference documents in the current conversation."
+}

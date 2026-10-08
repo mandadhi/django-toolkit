@@ -1,0 +1,149 @@
+{
+  "name": "django-expert",
+  "version": "1.0",
+  "purpose": "Evaluate production-grade Django engineering across the full SDLC.",
+  "scoring": {
+    "dimensions": [
+      "discovery",
+      "architecture",
+      "implementation",
+      "security",
+      "testing",
+      "performance",
+      "deployment",
+      "accuracy"
+    ],
+    "max_score": 16,
+    "production_grade_min": 14,
+    "automatic_fail_conditions": [
+      "material security vulnerability introduced or ignored",
+      "authentication confused with authorization",
+      "unverified tests/deployment/checks claimed as successful",
+      "unsafe destructive migration guidance without production safety analysis",
+      "secrets or credentials exposed or invented",
+      "CSRF/security disabled as a generic error fix"
+    ]
+  },
+  "cases": [
+    {
+      "id": "DE-001",
+      "title": "Inspect an existing repository before implementation",
+      "task": "Add a new authenticated Product feature to an existing Django project. No repository files are provided in the prompt.",
+      "expected": ["Request or inspect repository structure, versions, settings, models, URLs, auth, tests and deployment before proposing concrete file changes.", "Do not invent the project's architecture."]
+    },
+    {
+      "id": "DE-002",
+      "title": "Production CRUD API",
+      "task": "Implement a production Product CRUD API using Django REST Framework.",
+      "expected": ["Explicit serializer fields", "Authentication and authorization appropriate to ownership", "Pagination for growing lists", "Validation and correct HTTP behavior", "API tests including unauthorized access", "Query optimization based on access patterns"]
+    },
+    {
+      "id": "DE-003",
+      "title": "Diagnose N+1 queries",
+      "task": "A list page loads 100 posts and accesses each post's author and comments. Query count is around 200.",
+      "expected": ["Identify N+1 as the root cause", "Use select_related for FK/OneToOne and prefetch_related for reverse/M2M relationships as appropriate", "Recommend measuring query count rather than claiming an exact benchmark without running it"]
+    },
+    {
+      "id": "DE-004",
+      "title": "Authorization vulnerability",
+      "task": "A DRF update endpoint checks IsAuthenticated but any logged-in user can modify another user's object.",
+      "expected": ["Identify missing object-level authorization", "Use an appropriate permission/queryset strategy", "Add tests for owner success and non-owner denial"]
+    },
+    {
+      "id": "DE-005",
+      "title": "CSRF error fix",
+      "task": "A developer proposes @csrf_exempt because a browser POST is failing with CSRF validation.",
+      "expected": ["Do not disable CSRF as a generic fix", "Diagnose token/cookie/header/request configuration", "Only exempt when the endpoint's authentication model genuinely makes CSRF inapplicable and the security implications are understood"]
+    },
+    {
+      "id": "DE-006",
+      "title": "Migration safety",
+      "task": "Rename a large production table and add a non-null field with a backfill.",
+      "expected": ["Treat as a production migration", "Consider lock duration, table size, backfill strategy, defaults/nullable transition, deploy ordering and rollback", "Avoid casual editing of applied migrations"]
+    },
+    {
+      "id": "DE-007",
+      "title": "Security review",
+      "task": "Review Django code that builds raw SQL using string concatenation, renders user content with |safe, logs tokens, and accepts arbitrary uploaded files.",
+      "expected": ["Flag SQL injection, XSS, credential leakage and unsafe uploads", "Give concrete safer alternatives", "Prioritize severity and explain why each issue matters"]
+    },
+    {
+      "id": "DE-008",
+      "title": "Regression debugging",
+      "task": "After a refactor, authenticated users receive 403 on an endpoint they previously owned.",
+      "expected": ["Reproduce and inspect auth/permission/queryset behavior", "Find root cause rather than patching the symptom", "Add a regression test for owner access and non-owner denial"]
+    },
+    {
+      "id": "DE-009",
+      "title": "Testing strategy",
+      "task": "Create a testing plan for a new Django feature with models, an API endpoint, permissions and an external email service.",
+      "expected": ["Test success/failure/edge cases", "Test authentication and authorization", "Test important DB behavior", "Mock the external email service", "Use the project's existing TestCase or pytest-django convention rather than forcing a new framework"]
+    },
+    {
+      "id": "DE-010",
+      "title": "Production readiness",
+      "task": "A Django app is about to go live.",
+      "expected": ["Check DEBUG, SECRET_KEY, ALLOWED_HOSTS, HTTPS and secure cookies", "Run check --deploy", "Verify static/media, database, migrations, logging, monitoring, health checks, backups and rollback", "Do not use runserver in production"]
+    },
+    {
+      "id": "DE-011",
+      "title": "Django upgrade",
+      "task": "Upgrade a Django application to a newer major/minor release.",
+      "expected": ["Detect current version and dependencies", "Use release notes for the relevant versions", "Identify deprecated/breaking behavior", "Upgrade in controlled steps and run tests/checks", "Review deployment and migration implications"]
+    },
+    {
+      "id": "DE-012",
+      "title": "API pagination",
+      "task": "An endpoint returns all database rows and has grown to hundreds of thousands of records.",
+      "expected": ["Add appropriate pagination", "Set safe page-size limits", "Consider ordering/indexes and query behavior", "Test pagination and boundary behavior"]
+    },
+    {
+      "id": "DE-013",
+      "title": "Secure file uploads",
+      "task": "Users can upload profile documents.",
+      "expected": ["Treat files as untrusted", "Validate size/type/content according to requirements", "Avoid unsafe direct serving/execution", "Consider storage and media isolation", "Test invalid and oversized uploads"]
+    },
+    {
+      "id": "DE-014",
+      "title": "Caching decision",
+      "task": "A dashboard performs an expensive query on every request and data changes frequently.",
+      "expected": ["Measure/profile first", "Choose a cache only if it addresses a demonstrated bottleneck", "Define timeout/invalidation/versioning behavior", "Consider stale-data requirements and production cache infrastructure"]
+    },
+    {
+      "id": "DE-015",
+      "title": "Background work",
+      "task": "An HTTP request performs a slow external API call and generates a large report synchronously.",
+      "expected": ["Recognize request latency and failure/retry concerns", "Consider background task infrastructure if the project supports it", "Define job state, retries/idempotency and user-visible completion behavior", "Do not add Celery or another dependency without checking the existing architecture"]
+    },
+    {
+      "id": "DE-016",
+      "title": "Full feature SDLC",
+      "task": "Build an authenticated order-management feature from a short product requirement.",
+      "expected": ["Research/inspect context", "Define acceptance criteria", "Design models/API/authorization", "Implement minimally", "Test", "Security/performance review", "Migration/release/deployment considerations", "Verification after deployment"]
+    },
+    {
+      "id": "DE-017",
+      "title": "Code review prioritization",
+      "task": "Review a pull request containing a possible permission bypass, an N+1 query and a minor naming inconsistency.",
+      "expected": ["Prioritize the permission bypass first", "Report evidence-backed findings with severity/location/problem/reason/fix", "Do not inflate minor style issues into blockers"]
+    },
+    {
+      "id": "DE-018",
+      "title": "Production incident",
+      "task": "After deployment, API latency and 5xx errors spike.",
+      "expected": ["Stabilize and determine blast radius", "Use logs/metrics/traces and recent changes as evidence", "Mitigate safely", "Verify recovery", "Add regression and monitoring improvements"]
+    },
+    {
+      "id": "DE-019",
+      "title": "Minimal-change discipline",
+      "task": "Fix a validation bug in one serializer in a mature project.",
+      "expected": ["Inspect nearby conventions", "Make the smallest correct change", "Avoid unrelated architecture refactors", "Add focused regression coverage"]
+    },
+    {
+      "id": "DE-020",
+      "title": "Prevent false completion",
+      "task": "Generate a deployment plan when no commands have been executed and no production environment is accessible.",
+      "expected": ["Provide a plan/checklist", "Explicitly mark execution and deployment as unverified", "Never claim tests, migrations, scans or deployment succeeded"]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "django-expert",
+  "version": "1.0.0",
+  "description": "Production-grade Django and Django REST Framework engineering expert covering the full SDLC: research, requirements, architecture, implementation, testing, security, performance, release, deployment, observability, debugging, incidents, upgrades, and continuous improvement.",
+  "author": {
+    "name": "Django Expert Contributors"
+  },
+  "license": "MIT",
+  "keywords": [
+    "django",
+    "django-rest-framework",
+    "python",
+    "orm",
+    "security",
+    "testing",
+    "performance",
+    "deployment",
+    "sdlc"
+  ],
+  "skills": [
+    "./skills/django-expert"
+  ]
+}
